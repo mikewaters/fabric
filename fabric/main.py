@@ -259,7 +259,7 @@ def is_task_object(a):
     return isinstance(a, Task) and a.use_task_objects
 
 
-def parse_options():
+def parse_options(args_override=None):
     """
     Handle command-line options with optparse.OptionParser.
 
@@ -345,7 +345,7 @@ def parse_options():
     #
 
     # Return three-tuple of parser + the output from parse_args (opt obj, args)
-    opts, args = parser.parse_args()
+    opts, args = parser.parse_args(args=args_override)
     return parser, opts, args
 
 
@@ -585,13 +585,13 @@ def show_commands(docstring, format, code=0):
     sys.exit(code)
 
 
-def main(fabfile_locations=None):
+def main(fabfile_locations=None, args_override=None):
     """
     Main command-line execution loop.
     """
     try:
         # Parse command line options
-        parser, options, arguments = parse_options()
+        parser, options, arguments = parse_options(args_override)
 
         # Handle regular args vs -- args
         arguments = parser.largs
